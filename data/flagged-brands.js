@@ -1,4 +1,4 @@
-// Knockoff — seed blocklist of known pseudo-brands / trademark-squat brands.
+// Knockoff: seed blocklist of known pseudo-brands / trademark-squat brands.
 // Many of these were banned from Amazon in the 2021 review-abuse purge
 // (Aukey, Mpow, RavPower, TaoTronics, VicTsing...) or are prolific
 // gibberish-name sellers. The heuristic scorer catches the long tail;

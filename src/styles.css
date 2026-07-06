@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────────────────────────────
-   Knockoff — injected page styles.
+   Knockoff: injected page styles.
 
    Discipline over decoration: these surfaces should feel like native OS
    chrome that happens to live on Amazon. One background per surface, dense
@@ -7,16 +7,16 @@
    Everything prefixed ko- to stay out of Amazon's way.
 
    Filter actions:
-     .ko-hide  — remove from view (floating pill offers reveal)
-     .ko-dim   — fade + desaturate, restore on hover
-     .ko-label — badge only
+     .ko-hide : remove from view (floating pill offers reveal)
+     .ko-dim  : fade + desaturate, restore on hover
+     .ko-label: badge only
    ──────────────────────────────────────────────────────────────────────────── */
 
 .ko-act.ko-hide {
   display: none !important;
 }
 
-/* "Show" was clicked — hidden items come back in the dim treatment. No
+/* "Show" was clicked: hidden items come back in the dim treatment. No
    borders or outlines here: Amazon's tile elements extend into the grid
    gutters, so any ring drawn on them clips and merges between cards. The
    badge chip identifies the item; the fade says why it was hidden. */
@@ -24,7 +24,7 @@
   display: revert !important;
 }
 
-/* Dim Amazon's content but never our own chrome — opacity on the tile
+/* Dim Amazon's content but never our own chrome: opacity on the tile
    itself would wash out the badge and menu with it. */
 .ko-act.ko-dim > :not(.ko-badge):not(.ko-menu),
 .ko-revealed .ko-act.ko-hide > :not(.ko-badge):not(.ko-menu) {
@@ -39,7 +39,7 @@
   filter: none;
 }
 
-/* ── Verdict colors — the only color these surfaces use ──────────────────
+/* ── Verdict colors: the only color these surfaces use ──────────────────
    --ko-tint     fill color (chip background, menu dot)
    --ko-on-tint  text/icon color on top of the fill
    --ko-text     the verdict color as readable text on white               */
@@ -53,7 +53,7 @@
 .ko-v-allowed   { --ko-tint: #047857; --ko-on-tint: #fff;    --ko-text: #047857; }
 
 /* ── Badge chip ─────────────────────────────────────────────────────────────
-   Filled with the verdict color — a status chip must be readable at a
+   Filled with the verdict color: a status chip must be readable at a
    glance from across the page. Top-right corner: Amazon owns the top-left
    ("Sponsored", "Overall Pick") and our chip must not sit on top of theirs. */
 .ko-badge {
@@ -74,7 +74,7 @@
   color: var(--ko-on-tint, #fff);
   cursor: pointer;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-  /* the punched hole — the chip is a price tag; the page shows through it */
+  /* the punched hole: the chip is a price tag; the page shows through it */
   -webkit-mask: radial-gradient(circle 2.5px at 8.5px 50%, transparent 96%, #000 100%);
           mask: radial-gradient(circle 2.5px at 8.5px 50%, transparent 96%, #000 100%);
   transition: transform 0.1s ease, filter 0.12s ease;
@@ -240,7 +240,7 @@
   white-space: nowrap;
 }
 
-/* Report row — same register, just quieter text */
+/* Report row: same register, just quieter text */
 .ko-menu-foot .ko-menu-btn,
 .ko-menu-foot .ko-menu-btn:hover svg + .ko-menu-label {
   color: #52525b;

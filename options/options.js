@@ -1,4 +1,4 @@
-// Knockoff — options page. Textareas hold one brand per line; stored as
+// Knockoff options page. Textareas hold one brand per line; stored as
 // arrays of display names in chrome.storage.sync (normalization happens in
 // the detector at lookup time).
 

@@ -1,17 +1,17 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Knockoff — report worker (Cloudflare Worker + D1)
+// Knockoff report worker (Cloudflare Worker + D1)
 //
 // Accepts brand misclassification reports from the extension and stores them
-// for review. No accounts, no cookies, no PII — the reporter IP is only ever
+// for review. No accounts, no cookies, no PII. The reporter IP is only ever
 // stored as a salted hash, and only to rate-limit abuse.
 //
 //   POST /report                     one report (JSON body, see below)
 //   GET  /brands                     known-brands list (text, one per line;
 //                                    proxied from AmazonBrandFilterList and
-//                                    edge-cached 6h — the extension's daily
+//                                    edge-cached 6h; the extension's daily
 //                                    refresh hits this, not GitHub)
 //   GET  /flagged                    curated blocklist additions (text, one
-//                                    per line — extensions fetch this daily)
+//                                    per line; extensions fetch daily)
 //   GET  /review?token=...           HTML review dashboard (tallies + stream
 //                                    + one-click Block/Trust curation)
 //   POST /curate?token=...           {brand, list: "flagged"|"known"} to add,
@@ -98,14 +98,14 @@ async function handleReport(request, env) {
 // Serve the community brand list from our own domain: proxy the upstream
 // GitHub file with edge caching, and sanity-check it so a truncated or
 // error response never reaches clients.
-async function handleBrands(request, ctx) {
-  // The Cache API only works on custom-domain zones — touching it with a
+async function handleBrands(request, env, ctx) {
+  // The Cache API only works on custom-domain zones; touching it with a
   // workers.dev URL dies at the edge with error 1042 (uncatchable), so on
   // the workers.dev alias we just proxy uncached.
   const url = new URL(request.url);
   const useCache = !url.hostname.endsWith("workers.dev");
   const cache = caches.default;
-  const cacheKey = new Request(url.origin + "/brands");
+  const cacheKey = new Request(url.origin + "/brands-v2");
   if (useCache) {
     const cached = await cache.match(cacheKey);
     if (cached) return cached;
@@ -234,7 +234,7 @@ async function handleDashboard(env, url) {
 
   const empty = `<tr><td colspan="5" class="dim">No reports yet.</td></tr>`;
   const html = `<!doctype html><meta charset="utf-8">
-<meta name="robots" content="noindex"><title>Knockoff — report review</title>
+<meta name="robots" content="noindex"><title>Knockoff report review</title>
 <style>
   body{margin:0;background:#f4f4f5;color:#18181b;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
   main{max-width:860px;margin:0 auto;padding:40px 24px 80px}
@@ -253,9 +253,9 @@ async function handleDashboard(env, url) {
   .acts button:hover{border-color:#18181b}
 </style>
 <main>
-  <h1>Knockoff — report review</h1>
+  <h1>Knockoff report review</h1>
   <p class="sub">Block/Trust decisions ship to every install within its next daily
-  refresh — no extension release. Consider also upstreaming real brands to the
+  refresh. No extension release needed. Consider also upstreaming real brands to the
   community AmazonBrandFilterList.</p>
   <h2>Brand tallies</h2>
   <table><tr><th>Brand</th><th>Junk votes</th><th>Real votes</th><th>Total</th><th>Last report</th><th></th></tr>
@@ -318,7 +318,7 @@ export default {
       return handleReport(request, env);
     }
     if (request.method === "GET" && url.pathname === "/brands") {
-      return handleBrands(request, ctx);
+      return handleBrands(request, env, ctx);
     }
     if (request.method === "GET" && url.pathname === "/flagged") {
       return handleFlagged(env);

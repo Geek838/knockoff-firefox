@@ -1,4 +1,4 @@
-// Knockoff — background service worker. The toolbar button toggles the
+// Knockoff background service worker. The toolbar button toggles the
 // in-page control panel on Amazon tabs; anywhere else (no content script to
 // answer the message) it opens the settings page instead.
 

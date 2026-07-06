@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Knockoff — content script (all DOM work lives here; logic is in detector.js)
+// Knockoff content script (all DOM work lives here; logic is in detector.js)
 //
 // Runs on Amazon pages. Finds product tiles, asks the detector for a verdict
 // on each, then hides / dims / labels them per the user's settings. Also
@@ -39,7 +39,7 @@
 
   // Lifetime tally shown in the popup. Deduped per ASIN per page load so
   // rescans (settings changes) don't double-count; drift across concurrent
-  // tabs is fine — it's a running tally, not accounting.
+  // tabs is fine; it's a running tally, not accounting.
   var countedKeys = new Set();
   var lifetimePending = 0;
   var lifetimeTimer = null;
@@ -68,7 +68,7 @@
   ].join(",");
 
   // Engraved-line SVG glyphs (24 viewBox, 2px round stroke). Static strings
-  // authored here — never interpolate page content into these.
+  // authored here; never interpolate page content into these.
   var S = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">';
   var ICONS = {
     tag:      S + '<path d="M12.9 2.6 21.4 11.1a2 2 0 0 1 0 2.83l-7.47 7.47a2 2 0 0 1-2.83 0L2.6 12.9A2 2 0 0 1 2 11.49V4a2 2 0 0 1 2-2h7.49a2 2 0 0 1 1.41.6Z"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/></svg>',
@@ -112,7 +112,7 @@
       if (stale) {
         Promise.all([
           fetch(ABF_URL).then(function (r) { return r.ok ? r.text() : Promise.reject(r.status); }),
-          // curated blocklist additions — empty response is a valid state
+          // curated blocklist additions; empty response is a valid state
           fetch(REPORT_ENDPOINT + "/flagged").then(function (r) { return r.ok ? r.text() : ""; })
         ])
           .then(function (texts) {
@@ -128,7 +128,7 @@
               rescan();
             }
           })
-          .catch(function () { /* offline or rate-limited — bundled snapshot still works */ });
+          .catch(function () { /* offline or rate-limited; bundled snapshot still works */ });
       }
       return c;
     });
@@ -162,7 +162,7 @@
   }
 
   // Some layouts render the brand in its own row above the title. When that
-  // row exists it is authoritative — prepend it so extraction sees it first.
+  // row exists it is authoritative, so prepend it so extraction sees it first.
   function tileBrandRow(tile) {
     var el = tile.querySelector(
       '[data-cy="title-recipe"] .a-size-base-plus.a-color-base:not(a *), h2 + .a-row .a-size-base-plus'
@@ -202,11 +202,11 @@
     var badge = document.createElement("button");
     badge.className = "ko-badge ko-v-" + result.verdict;
     badge.type = "button";
-    badge.innerHTML = ICONS[meta.icon]; // static markup — brand text goes in via textContent below
+    badge.innerHTML = ICONS[meta.icon]; // static markup; brand text goes in via textContent below
     var label = document.createElement("span");
     label.textContent = result.brand || "No brand";
     badge.appendChild(label);
-    badge.title = "Knockoff: " + meta.label + " — " + result.reason + " (click for options)";
+    badge.title = "Knockoff: " + meta.label + " · " + result.reason + " (click for options)";
     badge.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -289,7 +289,7 @@
           sendReport(result, suggestion, tile.getAttribute("data-asin"));
           reportBtn.innerHTML = ICONS.seal;
           var thanks = el("span", "ko-menu-label");
-          thanks.textContent = "Reported — thank you";
+          thanks.textContent = "Reported. Thank you";
           reportBtn.appendChild(thanks);
           reportBtn.disabled = true;
         });
@@ -306,7 +306,7 @@
     return node;
   }
 
-  // First letter up, terminal period — detector reasons are fragments.
+  // First letter up, terminal period; detector reasons are fragments.
   function sentence(s) {
     if (!s) return "";
     s = s.charAt(0).toUpperCase() + s.slice(1);
@@ -378,7 +378,7 @@
       });
       document.body.appendChild(pill);
     }
-    // Only rewrite on change — our own MutationObserver watches the whole
+    // Only rewrite on change; our own MutationObserver watches the whole
     // body, and an unconditional write would re-trigger it forever.
     var state = stats.filtered + ":" + revealed;
     if (pill.getAttribute("data-ko-state") === state) return;
@@ -406,8 +406,8 @@
     if (!m) return;
     var brandName = m[1].trim();
     var result = Knockoff.classify(brandName, settings, userAllow, userBlock);
-    // On the product page, always label — never hide the page out from under
-    // the user — and include known/unknown verdicts for context.
+    // On the product page, always label, never hide the page out from under
+    // the user, and include known/unknown verdicts for context.
     var meta = VERDICT_META[result.verdict];
     var badge = document.createElement("button");
     badge.type = "button";
@@ -428,7 +428,7 @@
 
   // ── Control panel ──────────────────────────────────────────────────────────
   // Toggled by the toolbar button (via the background worker). Lives in the
-  // page, next to the results it changes — settings apply live as you flip
+  // page, next to the results it changes, so settings apply live as you flip
   // them, and the counts tick in place while you scroll.
 
   var PANEL_LOGO = '<svg viewBox="0 0 128 128" aria-hidden="true"><rect width="128" height="128" rx="30" fill="#171717"/><g transform="translate(64 66) scale(4.1) translate(-12 -12)"><path d="M12.9 2.6 21.4 11.1a2 2 0 0 1 0 2.83l-7.47 7.47a2 2 0 0 1-2.83 0L2.6 12.9A2 2 0 0 1 2 11.49V4a2 2 0 0 1 2-2h7.49a2 2 0 0 1 1.41.6Z" fill="#fff"/><circle cx="6.9" cy="6.9" r="1.55" fill="#171717"/><path d="M4.6 21 21 4.6" stroke="#dc2626" stroke-width="2.4" stroke-linecap="round" fill="none"/></g></svg>';
@@ -564,7 +564,7 @@
     updatePanelState();
   }
 
-  // Refresh the panel's numbers and control states from current settings —
+  // Refresh the panel's numbers and control states from current settings,
   // called after every scan so the count ticks live while scrolling.
   function updatePanelState() {
     var panel = document.getElementById("ko-panel");
@@ -628,7 +628,7 @@
   });
 
   // Toolbar button (relayed by the background worker) toggles the panel.
-  // Respond explicitly — a silent listener closes the port with lastError
+  // Respond explicitly; a silent listener closes the port with lastError
   // set, which the background reads as "no content script here".
   chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     if (msg && msg.type === "ko-toggle-panel") {

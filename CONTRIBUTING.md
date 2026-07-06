@@ -1,6 +1,6 @@
 # Contributing to Knockoff
 
-Thanks for helping. Most contributions are one-line brand list edits — you
+Thanks for helping. Most contributions are one-line brand list edits. You
 don't need to know Chrome extension development to make the filter better.
 
 ## Adding or fixing a brand
@@ -9,14 +9,14 @@ don't need to know Chrome extension development to make the filter better.
 matching category section, keeping rough alphabetical order within the line
 groups. The bar for "established": a real company with a track record, its
 own website, a warranty, and a reputation to lose. Age helps; quality is not
-the bar (cheap-but-real brands belong on the list — users who disagree can
+the bar (cheap-but-real brands belong on the list; users who disagree can
 personally block them).
 
 **A pseudo-brand is getting through** → add it to `data/flagged-brands.js`.
 Reserve this for prolific offenders; the heuristics catch the long tail, and
 blocklists are a losing race by design.
 
-**An established Chinese-owned brand** (real company, real reputation —
+**An established Chinese-owned brand** (real company, real reputation:
 Anker, DJI, Roborock tier) → `data/chinese-major.js`. These pass by default;
 a user setting flags them.
 
@@ -26,7 +26,7 @@ brand "Flexible") → add the word to `data/generic-words.js`.
 Matching is case-insensitive on lowercased alphanumerics ("Black+Decker" ≡
 "blackdecker"), so don't add capitalization or punctuation variants. Brands
 also on the community [AmazonBrandFilterList](https://github.com/chris-mosley/AmazonBrandFilterList)
-don't need duplicating here — consider upstreaming there too; Knockoff
+don't need duplicating here. Consider upstreaming there too; Knockoff
 bundles and daily-refreshes that list.
 
 ## Testing your change
@@ -36,7 +36,7 @@ No build step. After editing:
 1. `chrome://extensions` → Knockoff → reload (↻)
 2. Reload an Amazon search page that reproduces the case
 3. Every processed tile carries `data-ko-verdict` and `data-ko-brand`
-   attributes — inspect element to see exactly what the detector decided,
+   attributes. Inspect element to see exactly what the detector decided,
    and click the badge for the human-readable reason
 
 Quick logic check without the browser: `node tests/run.js` exercises the
@@ -46,8 +46,8 @@ detector against a fixture set of real titles.
 
 `src/detector.js` → `scoreBrand()`. Rules of thumb:
 
-- False negatives (junk passing) are recoverable — Strict mode, blocklist,
-  reports. False positives (real brands filtered) erode trust in the whole
+- False negatives (junk passing) are recoverable via Strict mode, the blocklist,
+  and reports. False positives (real brands filtered) erode trust in the whole
   extension. Bias accordingly.
 - The known-brands list always vetoes heuristics, so a new signal only needs
   to be safe for brands *not* on any list.
@@ -58,7 +58,7 @@ detector against a fixture set of real titles.
 
 One-click reports from the badge menu land in a D1 table (see
 `report-worker/`). Maintainers triage on the `/review` dashboard, where a
-Block/Trust click curates the brand — curated verdicts are served by the API
+Block/Trust click curates the brand, and curated verdicts are served by the API
 (`/flagged`, merged into `/brands`) and reach every install within its next
 daily refresh, no extension release needed. Brands that prove permanent
 should still graduate into the bundled data files (and real brands upstream

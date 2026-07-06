@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Knockoff — Amazon, without the knockoffs</title>
+<title>Knockoff: Amazon, without the knockoffs</title>
 <meta name="description" content="A free, fair-source Chrome extension that filters trademark-squat pseudo-brands out of Amazon. Buy from real, established brands.">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/icon128.png">
-<meta property="og:title" content="Knockoff — Amazon, without the knockoffs">
+<meta property="og:title" content="Knockoff: Amazon, without the knockoffs">
 <meta property="og:description" content="A free, fair-source Chrome extension that filters pseudo-brand junk out of Amazon search results.">
 <meta property="og:image" content="https://knockoff.shopping/og.png">
 <meta property="og:url" content="https://knockoff.shopping">
@@ -127,7 +127,7 @@
 
   /* the real chip, punched hole and all */
   .chip {
-    position: absolute; top: 8px; right: 8px;
+    position: absolute; top: 8px; right: 8px; z-index: 2;
     display: inline-flex; align-items: center; gap: 5px;
     padding: 3px 9px 3px 16px; border-radius: 6px;
     font: 600 11px/1.5 var(--sans); letter-spacing: .01em;
@@ -233,8 +233,8 @@
 <header>
   <div class="wrap hero">
     <h1>Amazon, without the <span class="slashed">knockoffs</span>.</h1>
-    <p class="sub">Knockoff filters the trademark-squat pseudo-brands — the SZHLUXes and
-    HORUSDYs — out of your search results, so what's left is brands with a reputation to lose.</p>
+    <p class="sub">Knockoff filters the trademark-squat pseudo-brands (the SZHLUXes and
+    HORUSDYs) out of your search results, so what's left is brands with a reputation to lose.</p>
     <div class="ctas" id="install">
       <a class="btn primary" href="https://github.com/Shpigford/knockoff#install">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="3.6"/><path d="M12 8.4h9.1M8.9 14.2 4.4 6.4M15.2 14.2l-4.6 7.9"/></svg>
@@ -288,7 +288,7 @@
         <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.9 2.6 21.4 11.1a2 2 0 0 1 0 2.83l-7.47 7.47a2 2 0 0 1-2.83 0L2.6 12.9A2 2 0 0 1 2 11.49V4a2 2 0 0 1 2-2h7.49a2 2 0 0 1 1.41.6Z"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/><path d="M4.2 21.5 21.5 4.2"/></svg><b>23</b> filtered <i>· Show</i></span>
       </div>
     </div>
-    <p class="demo-caption">Junk gets flagged, dimmed, or hidden — your call. Real brands pass untouched.</p>
+    <p class="demo-caption">Junk gets flagged, dimmed, or hidden. Your call. Real brands pass untouched.</p>
   </div>
 </header>
 
@@ -302,8 +302,8 @@
       <div class="step">
         <span class="n">1</span>
         <h3>Checked against 5,000+ real brands</h3>
-        <p>A bundled register of established brands — including the community-maintained
-        AmazonBrandFilterList — refreshed daily. Real brands pass instantly.</p>
+        <p>A bundled register of established brands, including the community-maintained
+        AmazonBrandFilterList, refreshed daily. Real brands pass instantly.</p>
       </div>
       <div class="step">
         <span class="n">2</span>
@@ -314,7 +314,7 @@
       <div class="step">
         <span class="n">3</span>
         <h3>You set the strictness</h3>
-        <p>Relaxed, Standard, or Strict — and flagged items are hidden, dimmed, or just labeled.
+        <p>Relaxed, Standard, or Strict, and flagged items are hidden, dimmed, or just labeled.
         Every verdict is one click from being overridden.</p>
       </div>
     </div>
@@ -344,7 +344,7 @@
       <div class="feature">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5C7.7 3 10.3 3 13 4.5c2 1.1 4 1.3 6 .6V15c-2 .7-4 .5-6-.6-2.7-1.5-5.3-1.5-8 0"/></svg></span>
         <h3>Community reporting</h3>
-        <p>One-click misclassification reports feed a curated list that reaches every install within a day — no update required.</p>
+        <p>One-click misclassification reports feed a curated list that reaches every install within a day, no update required.</p>
       </div>
       <div class="feature">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10.5" rx="2.5"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/></svg></span>
@@ -354,7 +354,7 @@
       <div class="feature">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8.5 8-4 4 4 4M15.5 8l4 4-4 4M13 5.5l-2.5 13"/></svg></span>
         <h3>Fair source</h3>
-        <p>FSL-1.1-MIT — converts to MIT after two years. No build step, readable in an afternoon. The brand lists are plain text files — fixing a misclassification is a one-line PR.</p>
+        <p>FSL-1.1-MIT, converting to MIT after two years. No build step, readable in an afternoon. The brand lists are plain text files, so fixing a misclassification is a one-line PR.</p>
       </div>
     </div>
   </div>
@@ -365,7 +365,7 @@
     <span class="kicker" style="color:#f87171">Fair source</span>
     <h2>Help draw the line.</h2>
     <p>The junk-brand arms race is only winnable together. Add brands, tune the heuristics,
-    or just report misclassifications from inside the extension — every fix ships to everyone.</p>
+    or just report misclassifications from inside the extension. Every fix ships to everyone.</p>
     <div class="ctas" style="justify-content:flex-start">
       <a class="btn white" href="https://github.com/Shpigford/knockoff">View the source</a>
       <a class="btn ghost" href="https://github.com/Shpigford/knockoff/blob/main/CONTRIBUTING.md">Contributing guide</a>
@@ -384,7 +384,7 @@
       <a href="https://github.com/Shpigford/knockoff/blob/main/LICENSE">License</a>
       <a href="https://github.com/Shpigford/knockoff/issues">Report an issue</a>
     </div>
-    <p class="fine">Not affiliated with Amazon. Brand verdicts are heuristics plus community lists — always
+    <p class="fine">Not affiliated with Amazon. Brand verdicts are heuristics plus community lists, always
     one click from being corrected. Product names shown above are illustrative.</p>
   </div>
 </footer>

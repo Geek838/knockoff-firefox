@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Knockoff — detector test runner. No dependencies:
+// Knockoff detector test runner. No dependencies:
 //   node tests/run.js
 // Loads the data files and detector into a sandbox (they're plain classic
 // scripts, not modules) and checks every fixture title's verdict.

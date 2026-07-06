@@ -1,4 +1,4 @@
-// Knockoff — curated list of established brands.
+// Knockoff: curated list of established brands.
 // "Established" = real company with a track record, warranty, and reputation to lose.
 // Matching is case-insensitive on normalized keys (lowercase alphanumeric).
 // Multi-word entries are matched longest-first against title prefixes.

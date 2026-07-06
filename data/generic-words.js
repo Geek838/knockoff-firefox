@@ -1,5 +1,5 @@
-// Knockoff — common product-title words. If a title *starts* with one of
-// these (or a number/measurement), the listing has no brand up front —
+// Knockoff: common product-title words. If a title *starts* with one of
+// these (or a number/measurement), the listing has no brand up front,
 // itself a strong junk signal on Amazon.
 var KO_GENERIC_WORDS = [
   "a", "an", "the", "new", "upgraded", "updated", "improved", "premium",

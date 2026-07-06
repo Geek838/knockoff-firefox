@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Knockoff — detection engine (pure logic, no DOM access, unit-testable)
+// Knockoff detection engine (pure logic, no DOM access, unit-testable)
 //
 // How a product gets a verdict, in priority order:
 //
@@ -9,7 +9,7 @@
 //   4. Chinese-major list    → "known" or "flagged" (depends on setting)
 //   5. known-brands lists    → "known"     (data/known-brands.js + data/abf-brands.js)
 //   6. name heuristics       → "flagged" (score ≥ 6) / "suspect" (score ≥ 3) / "unknown"
-//   —  no brand in title     → "unbranded"
+//   -  no brand in title     → "unbranded"
 //
 // Which verdicts get acted on depends on the filter level:
 //
@@ -19,7 +19,7 @@
 //              (strict = allowlist-only: anything not recognized is filtered)
 //
 // The curated allowlist always vetoes the heuristics. Plenty of legitimate
-// brands look "gibberish" (ASICS, HOKA, RYOBI) — they must live in a list.
+// brands look "gibberish" (ASICS, HOKA, RYOBI), so they must live in a list.
 // ─────────────────────────────────────────────────────────────────────────────
 
 var Knockoff = (function () {
@@ -57,7 +57,7 @@ var Knockoff = (function () {
   }
 
   // extraKnown / extraFlagged: remotely refreshed lists (arrays of names)
-  // from storage — the community allowlist and our curated blocklist.
+  // from storage: the community allowlist and our curated blocklist.
   function buildIndexes(extraKnown, extraFlagged) {
     idx.known.clear();
     idx.chineseMajor.clear();
@@ -83,7 +83,7 @@ var Knockoff = (function () {
   // word(s) of the title, when there is one at all. Strategy:
   //
   //   1. Slide a window (longest first) over the leading title words and look
-  //      for a match in any list — catches "Klein Tools", "PB Swiss Tools".
+  //      for a match in any list; catches "Klein Tools", "PB Swiss Tools".
   //   2. No list match → take the first word as a brand *candidate*, unless it
   //      is a number/measurement or a generic word ("2-Piece...", "Magnetic...")
   //      → those listings are "unbranded".
@@ -119,7 +119,7 @@ var Knockoff = (function () {
       return { name: tokens.slice(0, n).join(" "), key: key, listed: true };
     }
 
-    // No list match — first word as candidate, or unbranded.
+    // No list match: first word as candidate, or unbranded.
     var first = tokens[0].replace(/[,:;!]+$/, "");
     var fkey = normalize(first);
     if (!fkey || fkey.length < 2) return null;
@@ -137,7 +137,7 @@ var Knockoff = (function () {
   // Score ≥ 6 → "flagged" (high confidence junk)
   // Score ≥ 3 → "suspect" (probably junk; filtered at standard level and up)
   //
-  // Never applied to brands on any known list — the allowlist is the veto.
+  // Never applied to brands on any known list; the allowlist is the veto.
 
   function scoreBrand(name) {
     var s = 0;
@@ -145,7 +145,7 @@ var Knockoff = (function () {
     var letters = name.replace(/[^a-zA-Z]/g, "");
     if (!letters) return { score: 0, reasons: reasons };
 
-    // Non-Latin characters in a brand on the US store — near-certain junk.
+    // Non-Latin characters in a brand on the US store: near-certain junk.
     if (/[^\x00-\x7F]/.test(name)) { s += 4; reasons.push("non-latin characters"); }
 
     var isAllCaps = letters === letters.toUpperCase() && letters.length >= 3;

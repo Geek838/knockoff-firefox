@@ -1,4 +1,4 @@
-/* Knockoff — Chrome Web Store frame components. Each frame HTML sets its own
+/* Knockoff: Chrome Web Store frame components. Each frame HTML sets its own
    body size; render with scripts/render-store-assets.sh */
 
 :root {
@@ -41,7 +41,7 @@ body.dark .sub { color: #a1a1aa; }
 .mark svg { border-radius: 22%; }
 .mark b { font: 700 30px/1 var(--display); letter-spacing: -0.02em; }
 
-/* chips — the real thing, punched hole included */
+/* chips: the real thing, punched hole included */
 .chip {
   display: inline-flex; align-items: center; gap: 5px;
   padding: 4px 11px 4px 19px; border-radius: 7px;
@@ -56,7 +56,7 @@ body.dark .sub { color: #a1a1aa; }
 .chip.green { background: var(--green); color: #fff; }
 .chip.sm { font-size: 11px; padding: 3px 9px 3px 16px; }
 .chip.sm svg { width: 12px; height: 12px; }
-.chip.abs { position: absolute; top: 10px; right: 10px; }
+.chip.abs { position: absolute; top: 10px; right: 10px; z-index: 2; }
 
 /* browser + product cards */
 .browser {

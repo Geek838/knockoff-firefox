@@ -1,4 +1,4 @@
-// Knockoff — established brands that are Chinese-owned/operated.
+// Knockoff: established brands that are Chinese-owned/operated.
 // These are real companies with reputations (not trademark-squat pseudo-brands),
 // so they count as "known" by default. A setting lets users flag them anyway.
 var KO_CHINESE_MAJOR = [

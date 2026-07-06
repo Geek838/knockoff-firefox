@@ -1,4 +1,4 @@
-// Knockoff — detector fixtures: real Amazon titles and the verdict we expect.
+// Knockoff detector fixtures: real Amazon titles and the verdict we expect.
 // Add a case whenever you fix a misclassification or add a heuristic signal.
 // Verdicts: known | flagged | suspect | unknown | unbranded
 var KO_FIXTURES = [
@@ -10,7 +10,7 @@ var KO_FIXTURES = [
   ["PB Swiss Tools Bit Holder", "known"],
   ["WERA - 05051492001-838 RA S Bitholding Screwdriver", "known"],
   ["iFixit Mako Driver Kit - 64 Precision Bit Set", "known"],
-  ["ASICS Men's GT-2000 Running Shoe", "known"],       // all-caps but real — list veto
+  ["ASICS Men's GT-2000 Running Shoe", "known"],       // all-caps but real; list veto
   ["Instant Vortex 6-Quart Air Fryer", "known"],       // "Instant" generic-vs-brand guard
   ["Shark Navigator Lift-Away Upright Vacuum", "known"],
   // Established Chinese-owned (pass by default, flaggable by setting)
