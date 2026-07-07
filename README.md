@@ -2,7 +2,7 @@
 
 # Knockoff
 
-**A Chrome extension that filters pseudo-brand junk out of Amazon.** Buy from
+**A browser extension that filters pseudo-brand junk out of Amazon.** Buy from
 real, established brands, even when that means paying more.
 
 Amazon is flooded with trademark-squat "brands" (SZHLUX, HORUSDY, LATTOOK,
@@ -13,14 +13,17 @@ labels them, right in the search results.
 
 ## Install
 
+### Chrome
 **[Add to Chrome](https://chromewebstore.google.com/detail/pjgickchbiikhdfpmecaabkphmofpdce)** from the Chrome Web Store.
+
+### Firefox
+**[Add to Firefox](https://addons.mozilla.org/firefox/addon/knockoff/)** from Firefox Add-ons.
 
 Or load it unpacked for development:
 
 1. Clone this repo
-2. Open `chrome://extensions`
-3. Turn on **Developer mode** (top right)
-4. Click **Load unpacked** and select the repo folder
+2. **Chrome**: Open `chrome://extensions`, turn on **Developer mode**, click **Load unpacked** and select the repo folder
+3. **Firefox**: Go to `about:debugging`, click "This Firefox", click "Load Temporary Add-on" and select `manifest.json`
 
 Works on every Amazon marketplace.
 
@@ -28,7 +31,7 @@ Works on every Amazon marketplace.
 
 Safari requires the extension to be wrapped in a native app. Open
 [`safari/Knockoff/Knockoff.xcodeproj`](safari/Knockoff) in Xcode, run the
-**Knockoff** scheme, then enable Knockoff in Safari → Settings →
+**Knockoff** scheme, then enable Knockoff in Safari  Settings 
 Extensions. For unsigned local builds, first check "Allow unsigned
 extensions" in Safari's Develop menu.
 
@@ -55,7 +58,7 @@ resolved through this pipeline (first match wins):
 ### Name heuristics
 
 Unknown brands are scored on the linguistic signature of trademark-squat
-names: ALL-CAPS 5–9 character strings, vanishing vowel ratios,
+names: ALL-CAPS 59 character strings, vanishing vowel ratios,
 unpronounceable consonant runs, un-English letter pairs, non-Latin
 characters, random iNternal caPitalization. High scores are `flagged`,
 mid scores `suspect`. The known-brands list always vetoes the heuristics:
@@ -101,7 +104,7 @@ The easiest, highest-value contributions are brand list fixes; see
 plain JavaScript, loadable directly from the repo.
 
 ```
-manifest.json          MV3 manifest
+manifest.json          MV3 manifest (Chrome & Firefox compatible)
 data/known-brands.js   curated established brands (edit this one!)
 data/chinese-major.js  established Chinese-owned brands (toggleable)
 data/flagged-brands.js seed blocklist of notorious pseudo-brands
@@ -109,7 +112,8 @@ data/generic-words.js  common title words, for unbranded detection
 data/abf-brands.js     bundled AmazonBrandFilterList snapshot (generated, don't edit)
 src/detector.js        detection engine (pure logic, no DOM)
 src/content.js         page scanning, badges, actions, in-page control panel
-src/background.js      toolbar button → panel toggle (or options page)
+src/background.js      toolbar button -> panel toggle (or options page)
+src/compat.js          Chrome/Firefox compatibility layer
 options/               settings page (rules, allow/blocklist)
 report-worker/         Cloudflare Worker: reports, curation, brand-list API
 safari/                Xcode wrapper app for Safari (macOS)
@@ -117,6 +121,23 @@ site/                  knockoff.shopping landing page (static, Cloudflare)
 store-assets/          Chrome Web Store images + the HTML frames that render them
 scripts/               maintenance scripts
 ```
+
+## Browser Support
+
+Knockoff is officially supported on:
+
+| Browser | Status | Minimum Version |
+|---------|--------|-----------------|
+| Chrome |  Full Support | Latest |
+| Firefox |  Full Support | 109.0+ |
+| Safari |  Supported | Latest |
+
+### Firefox Notes
+
+- Uses WebExtensions API (compatible with Chrome extensions)
+- Extension ID: `knockoff@knockoff.shopping`
+- CSS `:has()` selector not supported, so sponsored hiding uses JavaScript
+- All Chrome API calls are polyfilled for compatibility
 
 ## Known limitations
 
