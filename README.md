@@ -128,9 +128,9 @@ Knockoff is officially supported on:
 
 | Browser | Status | Minimum Version |
 |---------|--------|-----------------|
-| Chrome |  Full Support | Latest |
-| Firefox |  Full Support | 109.0+ |
-| Safari |  Supported | Latest |
+| Chrome | ✅ Full Support | Latest |
+| Firefox | ✅ Full Support | 109.0+ |
+| Safari | ✅ Supported | Latest |
 
 ### Firefox Notes
 
