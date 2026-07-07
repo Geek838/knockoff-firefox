@@ -337,7 +337,7 @@
         verdict: result.verdict,
         asin: asin || null,
         marketplace: location.hostname,
-        extVersion: chrome.runtime.getManifest().version
+        extVersion: "0.2.0"
       })
     }).catch(function () { /* fire-and-forget */ });
   }
@@ -572,7 +572,7 @@
       chrome.runtime.sendMessage({ type: "ko-open-options" });
     });
     var version = el("span", "ko-panel-version");
-    version.textContent = "v" + chrome.runtime.getManifest().version;
+    version.textContent = "v" + "0.2.0";
     foot.appendChild(optLink);
     foot.appendChild(version);
     panel.appendChild(foot);
@@ -610,11 +610,29 @@
 
   // ── Scanning ───────────────────────────────────────────────────────────────
 
+  // Hide sponsored listings (JavaScript fallback for Firefox which doesn't support :has())
+  function hideSponsoredListings(hide) {
+    if (!settings.enabled) return;
+    var sponsoredTiles = document.querySelectorAll('div[data-component-type="s-search-result"] .puis-sponsored-label-text [aria-label*="Sponsored"]');
+    sponsoredTiles.forEach(function(el) {
+      var tile = el.closest('div[data-component-type="s-search-result"]');
+      if (tile) {
+        if (hide) {
+          tile.style.display = 'none';
+        } else {
+          tile.style.display = '';
+        }
+      }
+    });
+  }
+
   function scan() {
     // Sponsored-hiding is a DOM property, not a brand verdict, so it's a plain
-    // CSS toggle (see styles.css) rather than part of the classify() pipeline.
+    // toggle rather than part of the classify() pipeline.
+    // For modern browsers, use CSS class; for Firefox, use JS fallback
     document.documentElement.classList.toggle(
       "ko-hide-sponsored", settings.enabled && settings.hideSponsored);
+    hideSponsoredListings(settings.enabled && settings.hideSponsored);
     if (settings.enabled) {
       document.querySelectorAll(TILE_SELECTORS).forEach(processTile);
       processProductPage();
@@ -634,6 +652,10 @@
     });
     document.querySelectorAll(".ko-badge, .ko-menu, #ko-pill").forEach(function (el) {
       el.remove();
+    });
+    // Reset sponsored hiding
+    document.querySelectorAll('div[data-component-type="s-search-result"]').forEach(function(tile) {
+      tile.style.display = '';
     });
     scan();
   }

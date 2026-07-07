@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Knockoff — Amazon Brand Filter",
+  "name": "Knockoff - Amazon Brand Filter",
   "version": "0.2.0",
   "description": "Filters pseudo-brand junk out of Amazon and optionally hides sponsored listings. Buy from real, established brands.",
   "permissions": ["storage"],
@@ -19,8 +19,7 @@
     }
   },
   "background": {
-    "service_worker": "src/background.js",
-    "scripts": ["src/background.js"]
+    "service_worker": "src/background.js"
   },
   "options_ui": {
     "page": "options/options.html",
@@ -29,7 +28,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "knockoff@knockoff.shopping",
-      "strict_min_version": "140.0",
+      "strict_min_version": "109.0",
       "data_collection_permissions": {
         "required": ["none"]
       }
@@ -63,6 +62,7 @@
         "https://www.amazon.com.au/*"
       ],
       "js": [
+        "src/compat.js",
         "data/abf-brands.js",
         "data/known-brands.js",
         "data/chinese-major.js",

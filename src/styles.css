@@ -22,7 +22,6 @@
    Scoped to the "Sponsored" aria-label *inside* the label so Amazon's own
    "Featured from Amazon brands" tiles — which reuse .puis-sponsored-label-text
    with a different label — are left untouched. */
-html.ko-hide-sponsored div[data-component-type="s-search-result"]:has(.puis-sponsored-label-text [aria-label*="Sponsored"]) {
   display: none !important;
 }
 

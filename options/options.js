@@ -1,3 +1,10 @@
+// Compatibility layer for Firefox
+if (typeof browser !== 'undefined' && browser.runtime && browser.runtime.id) {
+  if (typeof chrome === 'undefined') {
+    var chrome = browser;
+  }
+}
+
 // Knockoff options page. Textareas hold one brand per line; stored as
 // arrays of display names in chrome.storage.sync (normalization happens in
 // the detector at lookup time).
