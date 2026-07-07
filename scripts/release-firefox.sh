@@ -60,12 +60,13 @@ NOTES=$(node -e "
   if (sec) console.log(sec.split('\n').slice(1).join('\n').trim());
 ")
 if [[ -n "$NOTES" ]]; then
-  node -e "
+  # Via env, not argv: notes start with "- " which node would parse as options.
+  NOTES="$NOTES" node -e "
     const fs = require('fs');
     fs.writeFileSync('$WORK_DIR/amo-metadata.json', JSON.stringify({
-      version: { release_notes: { 'en-US': process.argv[1] } }
+      version: { release_notes: { 'en-US': process.env.NOTES } }
     }, null, 2));
-  " "$NOTES"
+  "
   METADATA_ARGS=(--amo-metadata "$WORK_DIR/amo-metadata.json")
 else
   echo "Warning: no '## $VERSION' section in store-assets/release-notes.md — submitting without version notes." >&2
